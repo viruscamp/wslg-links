@@ -1,0 +1,10 @@
+[Unit]
+Description=Recreate WSLG sockets files in $XDG_RUNTIME_DIR
+ConditionPathIsDirectory=/mnt/wslg/runtime-dir
+
+[Service]
+Type=oneshot
+ExecStart=sh -c "ln -fs /mnt/wslg/runtime-dir/* "%t
+
+[Install]
+WantedBy=default.target

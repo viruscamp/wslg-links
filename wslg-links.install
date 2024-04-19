@@ -1,0 +1,14 @@
+post_install() {
+  echo Please ensure that user pulseaudio.socket is disabled.
+  echo Run \"sudo systemctl --global disable pulseaudio.socket\" to do so.
+  echo
+  echo Please ensure the intalled services are enabled:
+  echo  "  systemctl status wslg-tmp-x11"
+  echo  "  systemctl --user status wslg-runtime-dir"
+  echo 
+  echo If they are disabled,
+  echo Run \"sudo systemctl enable wslg-tmp-x11\"
+  echo Run \"sudo systemctl --global enable wslg-runtime-dir\" for all users
+  echo Or run \"systemctl --user enable wslg-runtime-dir\" for current user
+}
+
