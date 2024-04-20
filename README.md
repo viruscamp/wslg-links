@@ -1,22 +1,31 @@
 # wslg-links
 Recreate WSLg sockets after `/tmp` and `$XDG_RUNTIME_DIR` mounted as tmpfs.  
 
-Usage:
+## Usage
 ```sh
+sudo cp wslg-tmp-x11.service /usr/lib/systemd/system/
+sudo cp wslg-runtime-dir.service /usr/lib/systemd/user/
+
 sudo systemctl --global disable pulseaudio.socket
 
 sudo systemctl enable wslg-tmp-x11
 sudo systemctl --global enable wslg-runtime-dir
 ```
 
-Simply, we must make sure that:  
+## Why
+Systemd will mount `/tmp` and `$XDG_RUNTIME_DIR`(`/run/user/1000`) as tmpfs, make `/tmp/.X11-unix/X0` and `$XDG_RUNTIME_DIR/wayland-0` missing.  
+Debian and Ubuntu always mask `tmp.mount` by put it in `/usr/share/systemd/tmp.mount`.  
+Ubuntu-22.04 won't mount `/run/user/1000` due to a bug in `/usr/lib/systemd/systemd-user-runtime-dir`.  
+Ubuntu-24.04 is using a new version of systemd which fix the bug, so it will mount `/run/user/1000`, and make `$XDG_RUNTIME_DIR/wayland-0` missing.  
+See https://viruscamp.github.io/posts/2024/04/what-does-wslg-do-3/ for more details.  
+
+## How
+Simply, we must recreate links to make sure that:  
 
 ```
 /tmp/.X11-unix/X0          -> /mnt/wslg/.X11-unix/X0
 $XDG_RUNTIME_DIR/wayland-0 -> /mnt/wslg/runtime-dir/wayland-0
 ```
-
-See https://viruscamp.github.io/posts/2024/04/what-does-wslg-do-3/ for more details.  
 
 For `/tmp/.X11-unix`, we can:  
 1. link the directory `ln -s /mnt/wslg/tmp/.X11-unix /tmp/.X11-unix`  
@@ -28,8 +37,7 @@ For `/tmp/.X11-unix`, we can:
 4. mount the directory readonly`mount -m -o bind,ro /mnt/wslg/.X11-unix /tmp/.X11-unix`  
     `Xephyr :1` cannot create any X socket.
 
-
-Other methods that using `tmpfiles.d`:
+## Other methods that using `tmpfiles.d`:
 
 ```sh
 $ cat /etc/tmpfiles.d/wslg.conf

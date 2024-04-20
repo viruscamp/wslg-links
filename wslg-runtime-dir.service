@@ -4,7 +4,7 @@ ConditionPathIsDirectory=/mnt/wslg/runtime-dir
 
 [Service]
 Type=oneshot
-ExecStart=sh -c "ln -fs /mnt/wslg/runtime-dir/* "%t
+ExecStart=/bin/sh -c "ln -fs /mnt/wslg/runtime-dir/* "%t
 
 [Install]
 WantedBy=default.target
