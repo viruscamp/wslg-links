@@ -1,5 +1,5 @@
 [Unit]
-Description=Recreate WSLG sockets files in $XDG_RUNTIME_DIR
+Description=Recreate WSLg sockets files in $XDG_RUNTIME_DIR
 ConditionPathIsDirectory=/mnt/wslg/runtime-dir
 
 [Service]

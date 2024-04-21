@@ -4,7 +4,7 @@ pkgver=0.1
 pkgrel=1
 pkgdesc="Recreate WSLg sockets after /tmp and $XDG_RUNTIME_DIR mounted"
 arch=('any')
-license=('BSD')
+license=('BSD-3-Clause')
 install="${pkgname}.install"
 source=(wslg-tmp-x11.service
         wslg-runtime-dir.service)

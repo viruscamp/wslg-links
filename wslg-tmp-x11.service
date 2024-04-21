@@ -1,5 +1,5 @@
 [Unit]
-Description=Recreate WSLG X display file link after /tmp mounted
+Description=Recreate WSLg X display file link after /tmp mounted
 ConditionPathIsDirectory=/mnt/wslg/.X11-unix
 Requires=tmp.mount
 After=tmp.mount
@@ -8,7 +8,7 @@ Before=systemd-tmpfiles-setup.service
 [Service]
 Type=oneshot
 ExecStart=/bin/chmod +t /mnt/wslg/.X11-unix
-ExecStart=-/bin/rmdir /tmp/.X11-unix\"
+ExecStart=-/bin/rmdir /tmp/.X11-unix
 ExecStart=/bin/ln -sf /mnt/wslg/.X11-unix /tmp/.X11-unix
 #ExecStart=/bin/mount -m -o bind /mnt/wslg/.X11-unix /tmp/.X11-unix
 
