@@ -1,3 +1,5 @@
+<font size="28">This is needless from WSL 2.5.7.0</font>
+
 # wslg-links
 Recreate WSLg sockets after `/tmp` and `$XDG_RUNTIME_DIR` mounted as tmpfs.  
 
